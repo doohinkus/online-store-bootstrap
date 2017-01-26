@@ -20,6 +20,17 @@ export class AlbumService {
   getAlbumById(albumId: string){
      return this.angularFire.database.object('/albums/' + albumId);
    }
+   updateAlbum(localUpdatedAlbum){
+     var albumEntryInFirebase = this.getAlbumById(localUpdatedAlbum.$key);
+     albumEntryInFirebase.update({title: localUpdatedAlbum.title,
+                                 artist: localUpdatedAlbum.artist,
+                                 description: localUpdatedAlbum.description});
+   }
+
+   deleteAlbum(localAlbumToDelete){
+     var albumEntryInFirebase = this.getAlbumById(localAlbumToDelete.$key);
+     albumEntryInFirebase.remove();
+   }
   // getAlbumById(albumId: number){
   //   for (var i = 0; i <= ALBUMS.length - 1; i++) {
   //     if (ALBUMS[i].id === albumId) {
